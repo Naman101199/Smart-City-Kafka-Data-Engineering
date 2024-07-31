@@ -41,7 +41,7 @@ def get_next_time():
 def generate_gps_data(device_id, timestamp, vehicle_type='private'):
     return {
         'id': uuid.uuid4(),
-        'device_id': device_id,
+        'deviceId': device_id,
         'timestamp': timestamp,
         'speed': random.uniform(0, 40),
         'direction': 'North-East',
@@ -51,7 +51,7 @@ def generate_gps_data(device_id, timestamp, vehicle_type='private'):
 def generate_traffic_camera_data(device_id, timestamp, location, camera_id):
     return {
         'id': uuid.uuid4(),
-        'device_id': device_id,
+        'deviceId': device_id,
         'camera_id': camera_id,
         'location': location,
         'timestamp': timestamp,
@@ -62,7 +62,7 @@ def generate_traffic_camera_data(device_id, timestamp, location, camera_id):
 def generate_weather_data(device_id, timestamp, location):
     return {
         'id': uuid.uuid4(),
-        'device_id': device_id,
+        'deviceId': device_id,
         'location': location,
         'timestamp': timestamp,
         'temperature': random.uniform(-5, 26),
@@ -71,6 +71,18 @@ def generate_weather_data(device_id, timestamp, location):
         'windSpeed': random.uniform(0, 100),
         'humidity': random.randint(0, 100),
         'airQualityIndex': random.uniform(0, 500)
+    }
+
+def generate_emergency_incident_data(device_id, timestamp, location):
+    return {
+        'id': uuid.uuid4(),
+        'deviceId': device_id,
+        'incidentId': uuid.uuid4(),
+        'type': random.choice(['Accident', 'Fire', 'Medical', 'Police', 'None']),
+        'timestamp': timestamp,
+        'location': location,
+        'status': random.choice(['Active', 'Resolved']),
+        'description': 'Description of the incident'
     }
 
 def simulate_vehicle_movement():
@@ -103,12 +115,14 @@ def generate_vehicle_data(device_id):
     }
 
 
+
 def simulate_journey(producer, device_id):
     while True:
         vehicle_data = generate_vehicle_data(device_id)
         gps_data = generate_gps_data(device_id, vehicle_data['timestamp'])
         traffic_camera_data = generate_traffic_camera_data(device_id, vehicle_data['timestamp'], vehicle_data['location'], 'Nikon-Camera')
         weather_data = generate_weather_data(device_id, vehicle_data['timestamp'], vehicle_data['location'])
+        emergency_incident_data = generate_emergency_incident_data(device_id, vehicle_data['timestamp'], vehicle_data['location'])
         break
 
 
