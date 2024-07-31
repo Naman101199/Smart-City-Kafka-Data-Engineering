@@ -66,8 +66,11 @@ def generate_weather_data(device_id, timestamp, location):
         'location': location,
         'timestamp': timestamp,
         'temperature': random.uniform(-5, 26),
-        'weatherCondition': random.choice(['Sunny', 'Cloudy', 'Rain', 'Snow'])
-
+        'weatherCondition': random.choice(['Sunny', 'Cloudy', 'Rain', 'Snow']),
+        'precipitation': random.uniform(0, 25),
+        'windSpeed': random.uniform(0, 100),
+        'humidity': random.randint(0, 100),
+        'airQualityIndex': random.uniform(0, 500)
     }
 
 def simulate_vehicle_movement():
